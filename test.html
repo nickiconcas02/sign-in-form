@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="mystyle.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <button class="back-button">Back</button>
+                <h1>Contunue with your email</h1>
+            </div>
+            <form>
+                <div class="input-box error">
+                    <label for="ename">Email</label>
+                    <input type="text" id="ename" name="ename" placeholder="name@email.com"/>
+                    <span>Looks like this username / email is incomplete</span>
+                </div>
+                <div class="input-box">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password"/>
+                </div>
+                <ul>
+                    <li class="stroke">At least 8 characters</li>
+                    <li>At least 1uppercase letter</li>
+                    <li>At least 1lowercase letter</li>
+                    <li>At least 1 number</li>
+                </ul>
+                <button  class="continue-button" onclick="continueFn()" disabled>Contunue</button>
+                
+            </form>
+        </div>
+    </body>
+    <script>
+        function continueFn() {
+            console.log("test!!!!")
+        }
+    </script>
+</html> 
+
