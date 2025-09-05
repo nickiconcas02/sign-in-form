@@ -6,28 +6,103 @@
     <body>
         <div class="container">
             <div class="header">
-                <button class="back-button">Back</button
+                <button class="back-button">Back</button>
                 <h1>Contunue with your email</h1>
             </div>
-            <form>
-                <div class="input-box error">
+            <form onsubmit="handleSubmit(event)">
+                <div id="email-input-group" class="input-box">
                     <label for="ename">Email</label>
-                    <input type="text" id="ename" name="ename" placeholder="name@email.com"/>
+                    <input type="email" id="ename" name="ename" placeholder="name@email.com" oninput="handleEmailInputChange(event)"/>
                     <span>Looks like this username / email is incomplete</span>
                 </div>
-                <div class="input-box">
+                <div id="password-input-group" class="input-box">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password"/>
+                    <input type="password" id="password" name="password" oninput="handlePasswordlInputChange(event)"/>
                 </div>
-                <button  class="continue-button" onclick="continueFn()" disabled>Contunue</button>
-                lskdjflsidjf
+                <ul>
+                    <li id="length">At least 8 characters</li>
+                    <li id="upper">At least 1uppercase letter</li>
+                    <li id="lower">At least 1lowercase letter</li>
+                    <li id="number">At least 1 number</li>
+                </ul>
+                <button  id='continue-button' class="continue-button" type="submit" disabled>Contunue</button>
             </form>
         </div>
     </body>
     <script>
-        function continueFn() {
-            console.log("test!!!!")
+        const emailInputGroup = document.getElementById('email-input-group');
+
+        function validateEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
         }
+
+        function validatePassword(password){
+            const regexLength = /^[A-Za-z0-9]{8,}$/;
+            const regexUppercase = /^(?=.*[A-Z]).+$/;
+            const regexLowercase = /^(?=.*[a-z]).+$/;
+            const regexNumber = /^(?=.*[0-9]).+$/;
+
+            const length = document.getElementById('length')
+            const upper = document.getElementById('upper')
+            const lower = document.getElementById('lower')
+            const number = document.getElementById('number')
+
+            if (regexUppercase.test(password)){
+                upper.classList.add('stroke')
+            }else{
+                upper.classList.remove('stroke')
+            }
+            if (regexLength.test(password)){
+                length.classList.add('stroke')
+            } else {
+                length.classList.remove('stroke')
+            }
+            if (regexLowercase.test(password)){
+                lower.classList.add('stroke')
+            }else{
+                lower.classList.remove('stroke')
+            }
+            if (regexNumber.test(password)){
+                number.classList.add('stroke')
+            }else{
+                number.classList.remove('stroke')
+            }
+        }
+
+        function checkButton() {
+            const emailValue = document.getElementById('ename').value;
+            const passwordValue = document.getElementById('password').value;
+            if(emailValue && passwordValue){
+                document.getElementById('continue-button').disabled = false;
+            }else{
+                document.getElementById('continue-button').disabled = true;
+            }
+        }
+
+        function handleEmailInputChange(event){
+            const emailValue = event.target.value;
+            if (emailValue === ""){
+                emailInputGroup.classList.remove('error')
+            }
+            checkButton();
+        }
+
+        function handlePasswordlInputChange(event){
+            const passwordValue = event.target.value;
+            validatePassword(passwordValue);
+            checkButton();
+        }
+
+        function handleSubmit(event){
+            event.preventDefault()
+            const emailValue = document.getElementById("ename").value;
+            if (!validateEmail(emailValue)){
+                emailInputGroup.classList.add('error')
+            }
+        }
+
+
     </script>
 </html> 
 
